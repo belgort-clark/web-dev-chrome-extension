@@ -29,6 +29,17 @@ a:visited {
     text-decoration: none;
 }
 
+button {
+    margin: 0 0 1rem 0;
+    padding: .5rem;
+    border: 1px solid #002855;
+    border-radius: 3px;
+}
+
+button:hover {
+    filter: drop-shadow(2px 2px 2px #3a3a3a);
+}
+
 .modal-header {
     align-items: center;
     border-bottom: 0.5px solid #dadada;
