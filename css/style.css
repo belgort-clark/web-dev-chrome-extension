@@ -1,5 +1,5 @@
 body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Atkinson Hyperlegible", sans-serif;
     font-size: 14px;
     margin: 0;
     min-height: 180px;
@@ -9,7 +9,6 @@ body {
 
 h1 {
     display: flex;
-    font-family: "Open Sans", sans-serif;
     align-items: center;
     justify-content: flex-start;
     color: #002855;
@@ -30,7 +29,7 @@ a:visited {
 }
 
 button {
-    display:block;
+    display: block;
     margin: 0 0 .5rem 0;
     padding: .5rem;
     border: 1px solid #002855;
