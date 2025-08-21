@@ -18,3 +18,31 @@ css.addEventListener("click", (e) => {
     chrome.tabs.update(tabs[0].id, { url: myNewUrl });
   });
 });
+
+// Navigation menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const navItems = document.querySelectorAll('.nav-item');
+  
+  navItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        // Smooth scroll to the target section
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Add visual feedback - briefly highlight the clicked nav item
+        this.style.backgroundColor = '#004a8a';
+        setTimeout(() => {
+          this.style.backgroundColor = '';
+        }, 200);
+      }
+    });
+  });
+});

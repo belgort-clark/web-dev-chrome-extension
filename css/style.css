@@ -7,6 +7,58 @@ body {
     width: 550px;
 }
 
+/* Navigation Menu Styles */
+.nav-menu {
+    background-color: #e9ecef;
+    border-bottom: 2px solid #002855;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+}
+
+.nav-item {
+    background-color: #002855;
+    color: white !important;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-item:hover, .nav-item:focus {
+    background-color: #003d75;
+    text-decoration: none !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.nav-item:active {
+    transform: translateY(0);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add some spacing for section headings to account for sticky nav */
+h2[id] {
+    scroll-margin-top: 100px;
+}
+
 h1 {
     display: flex;
     align-items: center;
