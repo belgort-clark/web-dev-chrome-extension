@@ -10,11 +10,13 @@ body {
 /* Navigation Menu Styles */
 .nav-menu {
     background-color: #e9ecef;
-    border-bottom: 2px solid #002855;
+    /* Removed bottom border for a cleaner look */
+    /* border-bottom: 2px solid #002855; */
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* Enhanced drop shadow for a more pronounced effect at the bottom */
+    box-shadow: 0 6px 16px -4px rgba(0,0,0,0.18), 0 1.5px 4px rgba(0,0,0,0.10);
 }
 
 .nav-container {
