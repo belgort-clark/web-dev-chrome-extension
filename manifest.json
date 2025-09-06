@@ -15,5 +15,10 @@
     },
     "permissions": [
         "tabs"
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{943e8d02-179b-40f8-923e-e1c0be5193ab}"
+        }
+    }
 }
