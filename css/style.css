@@ -96,10 +96,17 @@ button {
     color: #fff;
     min-width: 220px;
     background-color: #002855;
+    transition: all 0.2s ease;
 }
 
 button:hover {
-    filter: drop-shadow(2px 2px 2px #3a3a3a);
+    background-color: #003d75;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+button:active {
+    transform: translateY(0);
 }
 
 .modal-header {
