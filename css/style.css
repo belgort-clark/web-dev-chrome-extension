@@ -118,12 +118,13 @@ h2[id] {
 .clear-btn {
     min-width: auto;
     width: 70px;
-    padding: 12px 20px;
+    padding: 12px 0;
     margin: 0;
     background-color: #6c757d;
     border-color: #6c757d;
     cursor: pointer;
     visibility: hidden;
+    text-align: center !important;
 }
 
 .clear-btn.visible {
