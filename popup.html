@@ -25,77 +25,38 @@
 
         <nav class="nav-menu">
                 <div class="nav-container">
+                        <a href="#accessibility"
+                                class="nav-item">Accessibility</a>
+                        <a href="#ai-tools" class="nav-item">AI Development
+                                Tools</a>
+                        <a href="#ux" class="nav-item">Design & UI/UX Tools</a>
+                        <a href="#validation" class="nav-item">Validation</a>
+                        <a href="#languages" class="nav-item">Languages</a>
+                        <a href="#misc" class="nav-item">Miscellaneous</a>
                         <a href="#clark-links" class="nav-item">Clark Links</a>
                         <a href="#program-maps" class="nav-item">Program
                                 Maps</a>
-                        <a href="#accessibility"
-                                class="nav-item">Accessibility</a>
-                        <a href="#languages" class="nav-item">Languages</a>
-                        <a href="#validation" class="nav-item">Validation</a>
-                        <a href="#ux" class="nav-item">Design & UI/UX Tools</a>
-                        <a href="#misc" class="nav-item">Miscellaneous</a>
                         <a href="#youtube" class="nav-item">YouTube</a>
                 </div>
         </nav>
 
         <main class="modal-content">
-                <p>Everything you need for your work in the <a
-                                href="https://www.clark.edu/academics/programs/science-technology-and-engineering/web-dev/"
-                                target="_blank">Clark College Web Development
-                                Program</a>, all in one place.
-                </p>
-                <h2 id="clark-links">Popular Clark College Links</h2>
-                <ul>
-                        <li><a href="https://clarkcollege.instructure.com"
-                                        target="_blank">Canvas</a></li>
-                        <li><a href="https://www.clark.edu/enroll/careers/"
-                                        target="_blank">Career Services</a></li>
-                        <li><a href="https://www.clark.edu/campus-life/student-support/counseling/index.php"
-                                        target="_blank">Counseling and Health
-                                        Center</a></li>
-                        <li><a href="https://clark.edu/schedule"
-                                        target="_blank">Course
-                                        Schedule</a></li>
-                        <li><a href="https://myaccount.ctclink.us/"
-                                        target="_blank">ctcLink</a></li>
-                        <li><a href="https://clark.edu/dac"
-                                        target="_blank">Disability Access
-                                        Center</a></li>
-                        <li><a href="https://www.clark.edu/about/calendars/events.php"
-                                        target="_blank">Important Dates and
-                                        Deadlines</a></li>
-                        <li><a href="https://www.clark.edu/its/documentation-and-resources/students/labs-account.php"
-                                        target="_blank">Reset Lab Password</a>
-                        </li>
-                        <li><a href="https://www.clark.edu/campus-life/student-support/success-coaches/"
-                                        target="_blank">Student Success
-                                        Coaches</a></li>
-                        <li><a href="https://chrome.google.com/webstore/detail/clark-college-student-suc/beobnchmpllcgkgijadojlbplijoihbk"
-                                        target="_blank">Student Success
-                                        Resources Chrome Extension</a></li>
-                        <li><a href="https://addons.mozilla.org/en-US/firefox/addon/clark-student-resources/"
-                                        target="_blank">Student Success
-                                        Resources Firefox Extension</a></li>
-                        <li><a href="https://www.clark.edu/its/documentation-and-resources/students/techhub/index.php"
-                                        target="_blank">TechHub</a></li>
-                        <li><a href="https://www.clark.edu/campus-life/student-support/tutoring/index.php"
-                                        target="_blank">Tutoring Center</a></li>
-                </ul>
-                <h2 id="program-maps">Program Maps</h2>
-                <ul>
-                        <li><a href="https://www.clark.edu/academics/programs/science-technology-and-engineering/comp-support/"
-                                        target="_blank">Computer Support Program
-                                        Maps</a>
-                        </li>
-                        <li><a href="https://www.clark.edu/academics/programs/creative-and-communication-arts/digital-media-arts/index.php"
-                                        target="_blank">Digital Media Arts
-                                        Program Maps</a>
-                        </li>
-                        <li><a href="https://www.clark.edu/academics/programs/science-technology-and-engineering/web-dev/index.php"
-                                        target="_blank">Web
-                                        Development Program Maps</a>
-                        </li>
-                </ul>
+                <!-- Search Box -->
+                <div class="search-container">
+                        <label for="searchBox" class="search-label">Search
+                                Resources</label>
+                        <div class="search-input-row">
+                                <input type="text" id="searchBox"
+                                        placeholder="Search resources... (e.g., 'icons', 'python', 'css')"
+                                        autocomplete="off">
+                                <button id="clearSearch"
+                                        class="clear-btn">Clear</button>
+                        </div>
+                </div>
+                <div id="noResults" class="no-results" style="display: none;">
+                        <p>No resources found. Try a different search term.</p>
+                </div>
+
                 <h2 id="accessibility">Accessibility</h2>
                 <ul>
                         <li><a href="https://www.accessible-social.com/"
@@ -118,6 +79,78 @@
                                         Content
                                         Accessibility Guidelines</a></li>
                 </ul>
+
+                <h2 id="ai-tools">AI Development Tools</h2>
+                <ul>
+                        <li><a href="https://chatgpt.com"
+                                        target="_blank">ChatGPT</a></li>
+                        <li><a href="https://claude.ai"
+                                        target="_blank">Claude</a></li>
+                        <li><a href="https://github.com/features/copilot"
+                                        target="_blank">GitHub Copilot</a> -
+                                Free for students via <a
+                                        href="https://education.github.com/pack"
+                                        target="_blank">GitHub Student Developer
+                                        Pack</a></li>
+                        <li><a href="https://gemini.google.com"
+                                        target="_blank">Google Gemini</a></li>
+                        <li><a href="https://www.perplexity.ai"
+                                        target="_blank">Perplexity</a></li>
+                </ul>
+
+                <h2 id="ux">Design & UI/UX Tools</h2>
+                <ul>
+                        <li><a href="https://icons.getbootstrap.com"
+                                        target="_blank">Bootstrap Icons</a></li>
+                        <li><a href="https://feathericons.com"
+                                        target="_blank">Feather Icons</a></li>
+                        <li><a href="https://fontawesome.com"
+                                        target="_blank">Font Awesome</a></li>
+                        <li><a href="https://heroicons.com"
+                                        target="_blank">Heroicons</a></li>
+                        <li><a href="https://iconify.design"
+                                        target="_blank">Iconify</a></li>
+                        <li><a href="https://lucide.dev" target="_blank">Lucide
+                                        Icons</a></li>
+                        <li><a href="https://fonts.google.com/icons"
+                                        target="_blank">Material Design
+                                        Icons</a></li>
+                        <li><a href="https://phosphoricons.com"
+                                        target="_blank">Phosphor Icons</a></li>
+                        <li><a href="https://simpleicons.org"
+                                        target="_blank">Simple Icons</a></li>
+                        <li><a href="https://cssgradient.io/"
+                                        target="_blank">CSS Gradient
+                                        Generator</a></li>
+                        <li><a href="https://oklch.com/" target="_blank">Color
+                                        Picker - OKLCH</a></li>
+                        <li><a href="https://figma.com"
+                                        target="_blank">Figma</a></li>
+                        <li><a href="https://fontshelf.com/"
+                                        target="_blank">Fontshelf</a></li>
+                        <li><a href="https://huemint.com"
+                                        target="_blank">Huemint</a></li>
+                        <li><a href="https://mobbin.com"
+                                        target="_blank">Mobbin</a></li>
+                        <li><a href="https://www.uidesigndaily.com/"
+                                        target="_blank">UI Design Daily</a></li>
+                        <li><a href="https://unblast.com"
+                                        target="_blank">Unblast</a></li>
+                        <li><a href="https://unsplash.com"
+                                        target="_blank">Unsplash</a></li>
+                </ul>
+
+                <h2 id="validation">HTML/CSS Validation Services</h2>
+                <ul>
+                        <li><a href="https://validator.w3.org"
+                                        target="_blank">HTML Validator</a>
+                        </li>
+                        <li><a href="https://jigsaw.w3.org" target="_blank">CSS
+                                        Validator</a></li>
+                </ul>
+                <button id="html">Validate HTML of Current Page</button>
+                <button id="css">Validate CSS of Current Page</button>
+
                 <h2 id="languages">Language References</h2>
                 <ul>
                         <li><a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/"
@@ -155,36 +188,6 @@
                                         target="_blank">WordPress</a></li>
                         <li><a href="https://www.w3schools.com/"
                                         target="_blank">W3Schools</a></li>
-                </ul>
-                <h2 id="validation">HTML/CSS Validation Services</h2>
-                <ul>
-                        <li><a href="https://validator.w3.org"
-                                        target="_blank">HTML Validator</a>
-                        </li>
-                        <li><a href="https://jigsaw.w3.org" target="_blank">CSS
-                                        Validator</a></li>
-                </ul>
-                <button id="html">Validate HTML of Current Page</button>
-                <button id="css">Validate CSS of Current Page</button>
-
-                <h2 id="ux">Design & UI/UX Tools</h2>
-                <ul>
-                        <li><a href="https://oklch.com/" target="_blank">Color
-                                        Picker - OKLCH</a></li>
-                        <li><a href="https://figma.com"
-                                        target="_blank">Figma</a></li>
-                        <li><a href="https://fontshelf.com/"
-                                        target="_blank">Fontshelf</a></li>
-                        <li><a href="https://huemint.com"
-                                        target="_blank">Huemint</a></li>
-                        <li><a href="https://mobbin.com"
-                                        target="_blank">Mobbin</a></li>
-                        <li><a href="https://www.uidesigndaily.com/"
-                                        target="_blank">UI Design Daily</a></li>
-                        <li><a href="https://unblast.com"
-                                        target="_blank">Unblast</a></li>
-                        <li><a href="https://unsplash.com"
-                                        target="_blank">Unsplash</a></li>
                 </ul>
 
                 <h2 id="misc">Miscellaneous</h2>
@@ -229,13 +232,62 @@
                                         Generator</a></li>
                         <li><a href="https://stackoverflow.com"
                                         target="_blank">StackOverflow</a></li>
-                        <li><a href="https://cs50.dev" target="_blank">Visual
-                                        Studio Code for CS50</a></li>
-                        <li><a href="https://winscp.net/eng/index.php"
-                                        target="_blank">WinSCP</a></li>
-                        <li><a href="https://apachefriends.org"
-                                        target="_blank">XAMPP</a></li>
                 </ul>
+
+                <h2 id="clark-links">Popular Clark College Links</h2>
+                <ul>
+                        <li><a href="https://clarkcollege.instructure.com"
+                                        target="_blank">Canvas</a></li>
+                        <li><a href="https://www.clark.edu/enroll/careers/"
+                                        target="_blank">Career Services</a></li>
+                        <li><a href="https://www.clark.edu/campus-life/student-support/counseling/index.php"
+                                        target="_blank">Counseling and Health
+                                        Center</a></li>
+                        <li><a href="https://clark.edu/schedule"
+                                        target="_blank">Course
+                                        Schedule</a></li>
+                        <li><a href="https://myaccount.ctclink.us/"
+                                        target="_blank">ctcLink</a></li>
+                        <li><a href="https://clark.edu/dac"
+                                        target="_blank">Disability Access
+                                        Center</a></li>
+                        <li><a href="https://www.clark.edu/about/calendars/events.php"
+                                        target="_blank">Important Dates and
+                                        Deadlines</a></li>
+                        <li><a href="https://www.clark.edu/its/documentation-and-resources/students/labs-account.php"
+                                        target="_blank">Reset Lab Password</a>
+                        </li>
+                        <li><a href="https://www.clark.edu/campus-life/student-support/success-coaches/"
+                                        target="_blank">Student Success
+                                        Coaches</a></li>
+                        <li><a href="https://chrome.google.com/webstore/detail/clark-college-student-suc/beobnchmpllcgkgijadojlbplijoihbk"
+                                        target="_blank">Student Success
+                                        Resources Chrome Extension</a></li>
+                        <li><a href="https://addons.mozilla.org/en-US/firefox/addon/clark-student-resources/"
+                                        target="_blank">Student Success
+                                        Resources Firefox Extension</a></li>
+                        <li><a href="https://www.clark.edu/its/documentation-and-resources/students/techhub/index.php"
+                                        target="_blank">TechHub</a></li>
+                        <li><a href="https://www.clark.edu/campus-life/student-support/tutoring/index.php"
+                                        target="_blank">Tutoring Center</a></li>
+                </ul>
+
+                <h2 id="program-maps">Program Maps</h2>
+                <ul>
+                        <li><a href="https://www.clark.edu/academics/programs/science-technology-and-engineering/comp-support/"
+                                        target="_blank">Computer Support Program
+                                        Maps</a>
+                        </li>
+                        <li><a href="https://www.clark.edu/academics/programs/creative-and-communication-arts/digital-media-arts/index.php"
+                                        target="_blank">Digital Media Arts
+                                        Program Maps</a>
+                        </li>
+                        <li><a href="https://www.clark.edu/academics/programs/science-technology-and-engineering/web-dev/index.php"
+                                        target="_blank">Web
+                                        Development Program Maps</a>
+                        </li>
+                </ul>
+
                 <h2 id="youtube">YouTube Channels</h2>
                 <ul>
                         <li><a href="https://www.youtube.com/@ArjanCodes"
@@ -267,7 +319,7 @@
                                 href="mailto:belgort@clark.edu">Bruce Elgort</a>
                         🍕🦆<br>Computer Technology at
                         <a href="https://clark.edu">Clark College</a><br>Version
-                        1.5.2
+                        1.5.4
                 </p>
         </footer>
         <script src="popup.js"></script>
