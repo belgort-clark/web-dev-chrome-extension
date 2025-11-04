@@ -300,7 +300,7 @@ button:focus {
 }
 
 .modal-header {
-    background: linear-gradient(135deg, #002855 0%, #003d75 100%);
+    background-color: #002855;
     padding: 20px 22px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-bottom: 3px solid #00509e;
