@@ -120,19 +120,14 @@ h2[id] {
     width: 70px;
     padding: 12px 0;
     margin: 0;
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background-color: #002855;
+    border-color: #002855;
     cursor: pointer;
-    visibility: hidden;
     text-align: center !important;
 }
 
-.clear-btn.visible {
-    visibility: visible;
-}
-
 .clear-btn:hover {
-    background-color: #5a6268;
+    background-color: #003d75;
 }
 
 .no-results {
