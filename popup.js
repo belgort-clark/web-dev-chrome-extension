@@ -27,6 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
     item.addEventListener('click', function (e) {
       e.preventDefault();
 
+      // Clear search when navigation is clicked
+      const searchBox = document.getElementById('searchBox');
+      if (searchBox && searchBox.value) {
+        searchBox.value = '';
+        // Trigger search clear to reset filtered results
+        searchBox.dispatchEvent(new Event('input'));
+      }
+
       const targetId = this.getAttribute('href');
       const targetElement = document.querySelector(targetId);
 
@@ -144,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (searchTerm) {
               section.classList.remove('collapsed');
               wrapper.classList.remove('collapsed');
-              wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+              wrapper.style.maxHeight = 'none';
             }
           } else {
             section.classList.add('hidden-section');
@@ -212,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (searchTerm) {
             section.classList.remove('collapsed');
             wrapper.classList.remove('collapsed');
-            wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+            wrapper.style.maxHeight = 'none';
           }
         } else {
           section.classList.add('hidden-section');
@@ -235,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Expand the section to show search results
             section.classList.remove('collapsed');
             wrapper.classList.remove('collapsed');
-            wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+            wrapper.style.maxHeight = 'none';
           } else {
             section.classList.add('hidden-section');
             wrapper.classList.add('hidden-section');
@@ -323,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // After animation, remove inline max-height for flexibility
         setTimeout(() => {
           if (!wrapper.classList.contains('collapsed')) {
-            wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+            wrapper.style.maxHeight = 'none';
           }
         }, 400);
       }
