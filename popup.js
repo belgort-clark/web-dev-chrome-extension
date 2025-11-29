@@ -66,7 +66,78 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 200);
       }
     });
-  });  // Search functionality
+  });
+
+  // Collapsible sections - must be set up BEFORE search functionality
+  const sectionHeaders = document.querySelectorAll('main h2[id]');
+
+  // Load saved collapse states from localStorage
+  const savedStates = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
+
+  // Wrap content after each h2 in a collapsible div
+  sectionHeaders.forEach(header => {
+    const sectionId = header.id;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'section-content';
+
+    // Get all elements until the next h2 or end
+    let nextElement = header.nextElementSibling;
+    const elementsToWrap = [];
+
+    while (nextElement && nextElement.tagName !== 'H2') {
+      elementsToWrap.push(nextElement);
+      nextElement = nextElement.nextElementSibling;
+    }
+
+    // Insert wrapper after header
+    header.parentNode.insertBefore(wrapper, header.nextElementSibling);
+
+    // Move elements into wrapper
+    elementsToWrap.forEach(el => wrapper.appendChild(el));
+
+    // Always default to collapsed
+    header.classList.add('collapsed');
+    wrapper.classList.add('collapsed');
+
+    // Add click handler
+    header.addEventListener('click', function () {
+      const isCollapsing = !wrapper.classList.contains('collapsed');
+
+      if (isCollapsing) {
+        // Collapsing: set current height first, then collapse
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+        // Force reflow
+        wrapper.offsetHeight;
+        wrapper.classList.add('collapsed');
+      } else {
+        // Expanding: remove collapsed class and set to scrollHeight
+        wrapper.classList.remove('collapsed');
+        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+
+        // After animation, remove inline max-height for flexibility
+        setTimeout(() => {
+          if (!wrapper.classList.contains('collapsed')) {
+            wrapper.style.maxHeight = 'none';
+          }
+        }, 400);
+      }
+
+      this.classList.toggle('collapsed');
+
+      // Save state
+      const collapsedSections = {};
+      sectionHeaders.forEach(h => {
+        if (h.classList.contains('collapsed')) {
+          collapsedSections[h.id] = true;
+        } else {
+          collapsedSections[h.id] = false;
+        }
+      });
+      localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
+    });
+  });
+
+  // Search functionality - must be set up AFTER sections are wrapped
   const searchBox = document.getElementById('searchBox');
   const clearButton = document.getElementById('clearSearch');
   const noResults = document.getElementById('noResults');
@@ -280,74 +351,5 @@ document.addEventListener('DOMContentLoaded', function () {
       searchBox.value = '';
       performSearch();
     }
-  });
-
-  // Collapsible sections
-  const sectionHeaders = document.querySelectorAll('main h2[id]');
-
-  // Load saved collapse states from localStorage
-  const savedStates = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
-
-  // Wrap content after each h2 in a collapsible div
-  sectionHeaders.forEach(header => {
-    const sectionId = header.id;
-    const wrapper = document.createElement('div');
-    wrapper.className = 'section-content';
-
-    // Get all elements until the next h2 or end
-    let nextElement = header.nextElementSibling;
-    const elementsToWrap = [];
-
-    while (nextElement && nextElement.tagName !== 'H2') {
-      elementsToWrap.push(nextElement);
-      nextElement = nextElement.nextElementSibling;
-    }
-
-    // Insert wrapper after header
-    header.parentNode.insertBefore(wrapper, header.nextElementSibling);
-
-    // Move elements into wrapper
-    elementsToWrap.forEach(el => wrapper.appendChild(el));
-
-    // Always default to collapsed
-    header.classList.add('collapsed');
-    wrapper.classList.add('collapsed');
-
-    // Add click handler
-    header.addEventListener('click', function () {
-      const isCollapsing = !wrapper.classList.contains('collapsed');
-
-      if (isCollapsing) {
-        // Collapsing: set current height first, then collapse
-        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
-        // Force reflow
-        wrapper.offsetHeight;
-        wrapper.classList.add('collapsed');
-      } else {
-        // Expanding: remove collapsed class and set to scrollHeight
-        wrapper.classList.remove('collapsed');
-        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
-
-        // After animation, remove inline max-height for flexibility
-        setTimeout(() => {
-          if (!wrapper.classList.contains('collapsed')) {
-            wrapper.style.maxHeight = 'none';
-          }
-        }, 400);
-      }
-
-      this.classList.toggle('collapsed');
-
-      // Save state
-      const collapsedSections = {};
-      sectionHeaders.forEach(h => {
-        if (h.classList.contains('collapsed')) {
-          collapsedSections[h.id] = true;
-        } else {
-          collapsedSections[h.id] = false;
-        }
-      });
-      localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
-    });
   });
 });
