@@ -352,4 +352,45 @@ document.addEventListener('DOMContentLoaded', function () {
       performSearch();
     }
   });
+
+  // Easter egg: click logo 5 times for a spin + confetti
+  const logoIcon = document.querySelector('.logo-icon');
+  let clickCount = 0;
+  let clickTimer = null;
+
+  logoIcon.addEventListener('click', function () {
+    clickCount++;
+    clearTimeout(clickTimer);
+    clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+
+    if (clickCount >= 5) {
+      clickCount = 0;
+      logoIcon.classList.add('spin');
+      launchConfetti();
+      logoIcon.addEventListener('animationend', function () {
+        logoIcon.classList.remove('spin');
+      }, { once: true });
+    }
+  });
+
+  function launchConfetti() {
+    const container = document.createElement('div');
+    container.className = 'confetti-container';
+    document.body.appendChild(container);
+
+    const colors = ['#002855', '#e8b931', '#e74c3c', '#2ecc71', '#9b59b6', '#f39c12'];
+    for (let i = 0; i < 40; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDelay = Math.random() * 0.5 + 's';
+      piece.style.width = (Math.random() * 8 + 5) + 'px';
+      piece.style.height = (Math.random() * 8 + 5) + 'px';
+      piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      container.appendChild(piece);
+    }
+
+    setTimeout(() => container.remove(), 2500);
+  }
 });
