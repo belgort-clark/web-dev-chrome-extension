@@ -7,6 +7,53 @@ body {
     width: 550px;
 }
 
+/* Skip to content link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: #002855;
+    color: white !important;
+    padding: 8px 16px;
+    z-index: 200;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Logo button reset */
+.logo-btn {
+    all: unset;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.logo-btn:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    border-radius: 50%;
+}
+
 /* Navigation Menu Styles */
 .nav-menu {
     background-color: #e9ecef;
@@ -45,6 +92,8 @@ body {
     text-decoration: none !important;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    outline: 2px solid white;
+    outline-offset: 2px;
 }
 
 .nav-item:active {
@@ -144,6 +193,7 @@ h2[id] {
     display: block;
     font-size: 32px;
     margin-bottom: 8px;
+    speak: never;
 }
 
 .no-results p {
@@ -185,11 +235,15 @@ h2 {
     padding: 16px 22px 14px 22px;
     border-bottom: 2px solid #002855;
     cursor: pointer;
-    user-select: none;
     position: relative;
     padding-right: 52px;
     transition: all 0.2s ease;
     background-color: #f8f9fa;
+}
+
+h2:focus {
+    outline: 2px solid #002855;
+    outline-offset: -2px;
 }
 
 h2:hover {
@@ -229,12 +283,13 @@ h2.collapsed::after {
 a:link,
 a:visited {
     color: black;
-    outline: 0;
     text-decoration: none;
 }
 
 a:focus, a:hover {
     text-decoration: underline;
+    outline: 2px solid #002855;
+    outline-offset: 2px;
 }
 
 button {
@@ -268,7 +323,8 @@ button:active {
 }
 
 button:focus {
-    outline: none;
+    outline: 2px solid #002855;
+    outline-offset: 2px;
     box-shadow: 0 0 0 3px rgba(0, 40, 85, 0.2);
 }
 

@@ -14,10 +14,14 @@
 </head>
 
 <body>
+        <a href="#main-content" class="skip-link">Skip to content</a>
         <header class="modal-header">
                 <h1 class="logo">
-                        <img class="logo-icon" src="images/logo.png"
-                                alt="Clark College Logo">Web Development
+                        <button type="button" class="logo-btn"
+                                aria-label="Clark College Logo">
+                                <img class="logo-icon" src="images/logo.png"
+                                        alt="">
+                        </button>Web Development
                         Program<br>
                         Student Resources
                 </h1>
@@ -40,7 +44,7 @@
                 </div>
         </nav>
 
-        <main class="modal-content">
+        <main class="modal-content" id="main-content">
                 <!-- Search Box -->
                 <div class="search-container">
                         <label for="searchBox" class="search-label">Search
@@ -53,7 +57,8 @@
                                         class="clear-btn">Clear</button>
                         </div>
                 </div>
-                <div id="noResults" class="no-results" style="display: none;">
+                <div id="noResults" class="no-results" role="status"
+                        aria-live="polite" style="display: none;">
                         <p>No resources found. Try a different search term.</p>
                 </div>
 
@@ -345,9 +350,9 @@
                 <p>Developed by Professor&nbsp;<a
                                 href="mailto:belgort@clark.edu">Professor Bruce
                                 Elgort</a>
-                        🍕🦆<br>Computer Technology at
+                        🐥🍕🦆<br>Computer Technology at
                         <a href="https://clark.edu">Clark College</a><br>Version
-                        1.6.7
+                        1.6.8
                 </p>
         </footer>
         <script src="popup.js"></script>

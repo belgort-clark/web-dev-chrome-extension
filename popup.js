@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (wrapper && wrapper.classList.contains('section-content')) {
             wrapper.classList.remove('collapsed');
           }
+          syncAriaExpanded(targetElement);
 
           // Save the expanded state
           const collapsedSections = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
@@ -99,8 +100,13 @@ document.addEventListener('DOMContentLoaded', function () {
     header.classList.add('collapsed');
     wrapper.classList.add('collapsed');
 
-    // Add click handler
-    header.addEventListener('click', function () {
+    // Make header keyboard accessible
+    header.setAttribute('tabindex', '0');
+    header.setAttribute('role', 'button');
+    header.setAttribute('aria-expanded', 'false');
+
+    // Toggle function shared by click and keyboard
+    function toggleSection() {
       const isCollapsing = !wrapper.classList.contains('collapsed');
 
       if (isCollapsing) {
@@ -122,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 400);
       }
 
-      this.classList.toggle('collapsed');
+      header.classList.toggle('collapsed');
+      header.setAttribute('aria-expanded', !isCollapsing);
 
       // Save state
       const collapsedSections = {};
@@ -134,6 +141,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
       localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
+    }
+
+    // Add click handler
+    header.addEventListener('click', toggleSection);
+
+    // Add keyboard handler for Enter and Space
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleSection();
+      }
     });
   });
 
@@ -142,6 +160,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const clearButton = document.getElementById('clearSearch');
   const noResults = document.getElementById('noResults');
   const sections = document.querySelectorAll('main h2[id]');
+
+  // Helper to sync aria-expanded with collapsed state
+  function syncAriaExpanded(header) {
+    header.setAttribute('aria-expanded', !header.classList.contains('collapsed'));
+  }
 
   function performSearch() {
     const searchTerm = searchBox.value.toLowerCase().trim();
@@ -159,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (wrapper && wrapper.classList.contains('section-content')) {
           section.classList.add('collapsed');
           wrapper.classList.add('collapsed');
+          syncAriaExpanded(section);
         }
       });
     }
@@ -224,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
               section.classList.remove('collapsed');
               wrapper.classList.remove('collapsed');
               wrapper.style.maxHeight = 'none';
+              syncAriaExpanded(section);
             }
           } else {
             section.classList.add('hidden-section');
@@ -292,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
             section.classList.remove('collapsed');
             wrapper.classList.remove('collapsed');
             wrapper.style.maxHeight = 'none';
+            syncAriaExpanded(section);
           }
         } else {
           section.classList.add('hidden-section');
@@ -315,6 +341,7 @@ document.addEventListener('DOMContentLoaded', function () {
             section.classList.remove('collapsed');
             wrapper.classList.remove('collapsed');
             wrapper.style.maxHeight = 'none';
+            syncAriaExpanded(section);
           } else {
             section.classList.add('hidden-section');
             wrapper.classList.add('hidden-section');
@@ -354,11 +381,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Easter egg: click logo 5 times for a spin + confetti
-  const logoIcon = document.querySelector('.logo-icon');
+  const logoBtn = document.querySelector('.logo-btn');
+  const logoIcon = logoBtn.querySelector('.logo-icon');
   let clickCount = 0;
   let clickTimer = null;
 
-  logoIcon.addEventListener('click', function () {
+  logoBtn.addEventListener('click', function () {
     clickCount++;
     clearTimeout(clickTimer);
     clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
@@ -393,4 +421,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setTimeout(() => container.remove(), 2500);
   }
+
+  // Add screen reader text to links that open in new tabs
+  document.querySelectorAll('a[target="_blank"]').forEach(link => {
+    const srSpan = document.createElement('span');
+    srSpan.className = 'sr-only';
+    srSpan.textContent = ' (opens in new tab)';
+    link.appendChild(srSpan);
+  });
 });
