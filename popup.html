@@ -3,7 +3,6 @@
 
 <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +61,9 @@
                         <p>No resources found. Try a different search term.</p>
                 </div>
 
-                <h2 id="accessibility">Accessibility</h2>
+                <h2 id="accessibility"><button type="button"
+                                class="section-toggle">Accessibility</button>
+                </h2>
                 <ul>
                         <li><a href="https://www.accessible-social.com/"
                                         target="_blank">Accessible Social</a>
@@ -85,7 +86,9 @@
                                         Accessibility Guidelines</a></li>
                 </ul>
 
-                <h2 id="ai-tools">AI Development Tools</h2>
+                <h2 id="ai-tools"><button type="button"
+                                class="section-toggle">AI Development
+                                Tools</button></h2>
                 <ul>
                         <li><a href="https://chatgpt.com"
                                         target="_blank">ChatGPT</a></li>
@@ -103,7 +106,8 @@
                                         target="_blank">Perplexity</a></li>
                 </ul>
 
-                <h2 id="ux">Design & UI/UX Tools</h2>
+                <h2 id="ux"><button type="button" class="section-toggle">Design
+                                & UI/UX Tools</button></h2>
                 <ul>
                         <li><a href="https://icons.getbootstrap.com"
                                         target="_blank">Bootstrap Icons</a></li>
@@ -155,7 +159,9 @@
                                         target="_blank">Unsplash</a></li>
                 </ul>
 
-                <h2 id="validation">HTML/CSS Validation Services</h2>
+                <h2 id="validation"><button type="button"
+                                class="section-toggle">HTML/CSS Validation
+                                Services</button></h2>
                 <ul>
                         <li><a href="https://validator.w3.org"
                                         target="_blank">HTML Validator</a>
@@ -166,7 +172,9 @@
                 <button id="html">Validate HTML of Current Page</button>
                 <button id="css">Validate CSS of Current Page</button>
 
-                <h2 id="languages">Language References</h2>
+                <h2 id="languages"><button type="button"
+                                class="section-toggle">Language
+                                References</button></h2>
                 <ul>
                         <li><a href="https://github.com/belgort-clark/language-comparison-examples"
                                         target="_blank">CTEC Student Language
@@ -211,7 +219,9 @@
                                         target="_blank">W3Schools</a></li>
                 </ul>
 
-                <h2 id="misc">Miscellaneous</h2>
+                <h2 id="misc"><button type="button"
+                                class="section-toggle">Miscellaneous</button>
+                </h2>
                 <ul>
                         <li><a href="https://caniuse.com/" target="_blank">Can I
                                         Use - Browser Support Tables</a></li>
@@ -264,7 +274,9 @@
                                         target="_blank">StackOverflow</a></li>
                 </ul>
 
-                <h2 id="clark-links">Popular Clark College Links</h2>
+                <h2 id="clark-links"><button type="button"
+                                class="section-toggle">Popular Clark College
+                                Links</button></h2>
                 <ul>
                         <li><a href="https://clarkcollege.instructure.com"
                                         target="_blank">Canvas</a></li>
@@ -302,7 +314,9 @@
                                         target="_blank">Tutoring Center</a></li>
                 </ul>
 
-                <h2 id="program-maps">Program Maps</h2>
+                <h2 id="program-maps"><button type="button"
+                                class="section-toggle">Program Maps</button>
+                </h2>
                 <ul>
                         <li><a href="https://www.clark.edu/academics/programs/science-technology-and-engineering/comp-support/"
                                         target="_blank">Computer Support Program
@@ -318,7 +332,9 @@
                         </li>
                 </ul>
 
-                <h2 id="youtube">YouTube Channels</h2>
+                <h2 id="youtube"><button type="button"
+                                class="section-toggle">YouTube Channels</button>
+                </h2>
                 <ul>
                         <li><a href="https://www.youtube.com/@ArjanCodes"
                                         target="_blank">ArjanCodes</a></li>
@@ -351,9 +367,9 @@
                 <p>Developed by Professor&nbsp;<a
                                 href="mailto:belgort@clark.edu">Professor Bruce
                                 Elgort</a>
-                        🐥🍕🦆<br>Computer Technology at
+                        <br>Computer Technology at
                         <a href="https://clark.edu">Clark College</a><br>Version
-                        1.7.0
+                        <span id="extVersion"></span>
                 </p>
         </footer>
         <script src="popup.js"></script>

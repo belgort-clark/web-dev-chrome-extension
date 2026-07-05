@@ -2,7 +2,7 @@
 
 A browser extension that provides Clark College Web Development students with quick access to curated links, tools, and resources directly from the browser toolbar.
 
-**Version:** 1.6.8  
+**Version:** 1.7.0  
 **Manifest:** V3  
 **Browsers:** Chrome, Firefox  
 **Developer:** Professor Bruce Elgort – Computer Technology, Clark College
@@ -11,7 +11,7 @@ A browser extension that provides Clark College Web Development students with qu
 
 ## Overview
 
-When clicked, the extension opens a popup window containing categorized links and resources useful for web development coursework. It also includes built-in HTML and CSS validation for the current page, a real-time search/filter feature, and collapsible sections with persistent state.
+When clicked, the extension opens a popup window containing categorized links and resources useful for web development coursework. It also includes built-in HTML and CSS validation for the current page, a real-time search/filter feature, and collapsible sections.
 
 ---
 
@@ -47,8 +47,7 @@ Two buttons in the **Validation** section send the URL of the currently active t
 ### Collapsible Sections
 
 - Each category section can be collapsed or expanded by clicking or pressing Enter/Space on the section heading.
-- Sections default to collapsed on open.
-- Collapse states are saved to `localStorage` so they persist between popup opens.
+- All sections always start collapsed when the popup is opened.
 
 ### Accessibility
 
@@ -77,6 +76,11 @@ Click the Clark College logo five times within one second to trigger a spin anim
 ├── icon_48.png        # Extension icon (48×48)
 ├── icon_64.png        # Extension icon (64×64)
 ├── icon_128.png       # Extension icon (128×128)
+├── scripts/
+│   └── check-links.js # Verifies every link in popup.html still resolves
+├── .github/
+│   └── workflows/
+│       └── check-links.yml  # Runs the link checker weekly and on PRs
 └── README.md          # This file
 ```
 
@@ -86,7 +90,7 @@ Click the Clark College logo five times within one second to trigger a spin anim
 
 ### manifest.json
 
-Declares the extension as Manifest V3 with the `tabs` permission (needed to read the active tab URL for validation). Defines `popup.html` as the default popup and registers icons. Includes `browser_specific_settings` for Firefox compatibility.
+Declares the extension as Manifest V3 with the `activeTab` permission (grants temporary access to the active tab's URL, only when the popup is opened, to build validation links). Defines `popup.html` as the default popup and registers icons. Includes `browser_specific_settings` for Firefox compatibility.
 
 ### popup.html
 
@@ -103,7 +107,7 @@ A single-page HTML document containing:
 Handles all interactive behavior:
 1. **Validation buttons** – Query the active tab, build a W3C validator URL, and navigate the tab to it.
 2. **Navigation menu** – Smooth-scrolls to the target section, expands it if collapsed, and clears any active search.
-3. **Collapsible sections** – Wraps content after each `<h2>` in a `<div class="section-content">`, toggles a `collapsed` class with animated `max-height`, and persists state via `localStorage`.
+3. **Collapsible sections** – Wraps content after each `<h2>` in a `<div class="section-content">` and toggles a `collapsed` class with animated `max-height`. Always starts collapsed on open.
 4. **Search** – Filters `<li>` items by text content, highlights matches, shows/hides sections, and displays a "no results" message when appropriate.
 5. **Keyboard shortcuts** – `/` focuses the search box; `Escape` clears it.
 6. **Easter egg** – Tracks logo clicks and fires confetti after five rapid clicks.
@@ -140,7 +144,19 @@ Styles the popup at a fixed width of 550 px. Includes:
 
 | Permission | Reason |
 |---|---|
-| `tabs` | Read the active tab's URL to build W3C validation links |
+| `activeTab` | Read the active tab's URL to build W3C validation links, granted temporarily when the popup is opened |
+
+---
+
+## Link Checking
+
+`popup.html` links out to ~100 external resources, which drift out of date over time. `scripts/check-links.js` walks every `<a href>` in the page and reports any that no longer resolve:
+
+```
+npm run check-links
+```
+
+A GitHub Actions workflow (`.github/workflows/check-links.yml`) runs this weekly and on any pull request touching `popup.html`. A handful of domains (ChatGPT, Claude.ai, Perplexity, Unsplash, Unblast) sit behind bot-protection that blocks automated requests outright even though the links work fine in a browser; these are skipped rather than reported as failures.
 
 ---
 

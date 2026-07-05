@@ -1,0 +1,9 @@
+{
+  "name": "web-dev-chrome-extension",
+  "version": "1.7.0",
+  "private": true,
+  "description": "Clark College Web Development student resources browser extension",
+  "scripts": {
+    "check-links": "node scripts/check-links.js"
+  }
+}

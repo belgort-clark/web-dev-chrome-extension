@@ -7,6 +7,21 @@ body {
     width: 550px;
 }
 
+/* Respect the OS-level motion preference: collapse every transition/animation
+   to near-instant (not 0, so animationend/transitionend still fire) and drop
+   smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* Skip to content link */
 .skip-link {
     position: absolute;
@@ -240,31 +255,53 @@ h1 {
 }
 
 h2 {
-    color: #002855;
-    font-size: 20px;
-    font-weight: 700;
     margin-top: 0;
     margin-bottom: 0;
-    padding: 16px 22px 14px 22px;
+}
+
+/* Section toggle button - lives inside each h2 so the heading itself keeps
+   its accessible heading role for screen-reader navigation, while this
+   button carries the expand/collapse interaction. */
+.section-toggle {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 16px 52px 14px 22px;
+    border: none;
+    border-radius: 0;
     border-bottom: 2px solid #002855;
+    background-color: #f8f9fa;
+    color: #002855;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    white-space: normal;
     cursor: pointer;
     position: relative;
-    padding-right: 52px;
     transition: all 0.2s ease;
-    background-color: #f8f9fa;
 }
 
-h2:focus {
-    outline: 2px solid #002855;
-    outline-offset: -2px;
-}
-
-h2:hover {
+.section-toggle:hover {
     color: #003d75;
     background-color: #e9ecef;
+    transform: none;
+    box-shadow: none;
 }
 
-h2::after {
+.section-toggle:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.section-toggle:focus {
+    outline: 2px solid #002855;
+    outline-offset: -2px;
+    box-shadow: none;
+}
+
+.section-toggle::after {
     content: '▼';
     position: absolute;
     right: 8px;
@@ -274,7 +311,7 @@ h2::after {
     transition: transform 0.4s ease-out;
 }
 
-h2.collapsed::after {
+.section-toggle.collapsed::after {
     transform: translateY(-50%) rotate(-90deg);
 }
 
@@ -486,5 +523,4 @@ footer a:hover {
         top: 100%;
         transform: rotate(720deg);
     }
-}
 }

@@ -21,6 +21,14 @@ css.addEventListener("click", (e) => {
 
 // Navigation menu functionality
 document.addEventListener('DOMContentLoaded', function () {
+  // Footer version number, sourced from manifest.json so it never drifts out of sync
+  const extVersion = document.getElementById('extVersion');
+  if (extVersion) {
+    extVersion.textContent = chrome.runtime.getManifest().version;
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const navItems = document.querySelectorAll('.nav-item');
 
   navItems.forEach(item => {
@@ -40,23 +48,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (targetElement) {
         // Expand the section if it's collapsed
-        if (targetElement.classList.contains('collapsed')) {
-          targetElement.classList.remove('collapsed');
-          const wrapper = targetElement.nextElementSibling;
-          if (wrapper && wrapper.classList.contains('section-content')) {
-            wrapper.classList.remove('collapsed');
-          }
-          syncAriaExpanded(targetElement);
-
-          // Save the expanded state
-          const collapsedSections = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
-          collapsedSections[targetElement.id] = false;
-          localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
+        const toggleBtn = targetElement.querySelector('.section-toggle');
+        const wrapper = targetElement.nextElementSibling;
+        if (toggleBtn && wrapper && wrapper.classList.contains('section-content') && wrapper.classList.contains('collapsed')) {
+          toggleBtn.classList.remove('collapsed');
+          wrapper.classList.remove('collapsed');
+          syncAriaExpanded(toggleBtn);
         }
 
         // Smooth scroll to the target section
         targetElement.scrollIntoView({
-          behavior: 'smooth',
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
           block: 'start'
         });
 
@@ -72,14 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Collapsible sections - must be set up BEFORE search functionality
   const sectionHeaders = document.querySelectorAll('main h2[id]');
 
-  // Load saved collapse states from localStorage
-  const savedStates = JSON.parse(localStorage.getItem('collapsedSections') || '{}');
-
   // Wrap content after each h2 in a collapsible div
   sectionHeaders.forEach(header => {
     const sectionId = header.id;
+    const toggleBtn = header.querySelector('.section-toggle');
     const wrapper = document.createElement('div');
     wrapper.className = 'section-content';
+    wrapper.id = `${sectionId}-content`;
 
     // Get all elements until the next h2 or end
     let nextElement = header.nextElementSibling;
@@ -97,15 +98,13 @@ document.addEventListener('DOMContentLoaded', function () {
     elementsToWrap.forEach(el => wrapper.appendChild(el));
 
     // Always default to collapsed
-    header.classList.add('collapsed');
+    toggleBtn.classList.add('collapsed');
     wrapper.classList.add('collapsed');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.setAttribute('aria-controls', wrapper.id);
 
-    // Make header keyboard accessible
-    header.setAttribute('tabindex', '0');
-    header.setAttribute('role', 'button');
-    header.setAttribute('aria-expanded', 'false');
-
-    // Toggle function shared by click and keyboard
+    // Toggle function shared by click and keyboard (native button already
+    // fires 'click' on Enter/Space, so no separate keydown handler needed)
     function toggleSection() {
       const isCollapsing = !wrapper.classList.contains('collapsed');
 
@@ -128,31 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 400);
       }
 
-      header.classList.toggle('collapsed');
-      header.setAttribute('aria-expanded', !isCollapsing);
-
-      // Save state
-      const collapsedSections = {};
-      sectionHeaders.forEach(h => {
-        if (h.classList.contains('collapsed')) {
-          collapsedSections[h.id] = true;
-        } else {
-          collapsedSections[h.id] = false;
-        }
-      });
-      localStorage.setItem('collapsedSections', JSON.stringify(collapsedSections));
+      toggleBtn.classList.toggle('collapsed');
+      toggleBtn.setAttribute('aria-expanded', String(!isCollapsing));
     }
 
-    // Add click handler
-    header.addEventListener('click', toggleSection);
-
-    // Add keyboard handler for Enter and Space
-    header.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleSection();
-      }
-    });
+    toggleBtn.addEventListener('click', toggleSection);
   });
 
   // Search functionality - must be set up AFTER sections are wrapped
@@ -162,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const sections = document.querySelectorAll('main h2[id]');
 
   // Helper to sync aria-expanded with collapsed state
-  function syncAriaExpanded(header) {
-    header.setAttribute('aria-expanded', !header.classList.contains('collapsed'));
+  function syncAriaExpanded(toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', !toggleBtn.classList.contains('collapsed'));
   }
 
   function performSearch() {
@@ -179,10 +158,11 @@ document.addEventListener('DOMContentLoaded', function () {
       // Collapse all sections when search is cleared
       sections.forEach(section => {
         const wrapper = section.nextElementSibling;
+        const toggleBtn = section.querySelector('.section-toggle');
         if (wrapper && wrapper.classList.contains('section-content')) {
-          section.classList.add('collapsed');
+          toggleBtn.classList.add('collapsed');
           wrapper.classList.add('collapsed');
-          syncAriaExpanded(section);
+          syncAriaExpanded(toggleBtn);
         }
       });
     }
@@ -195,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     sections.forEach(section => {
       const sectionId = section.id;
+      const toggleBtn = section.querySelector('.section-toggle');
       // Look for the wrapper div that contains the content
       const wrapper = section.nextElementSibling;
       if (!wrapper || !wrapper.classList.contains('section-content')) {
@@ -228,6 +209,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const originalText = link.textContent;
                 const regex = new RegExp(`(${searchTerm})`, 'gi');
                 link.innerHTML = originalText.replace(regex, '<span class="highlight">$1</span>');
+              } else if (link) {
+                // Shown via the section-level match, not its own text - clear any stale highlight
+                link.innerHTML = link.textContent;
               }
             } else {
               item.style.display = 'none';
@@ -245,10 +229,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Expand the section to show search results
             if (searchTerm) {
-              section.classList.remove('collapsed');
+              toggleBtn.classList.remove('collapsed');
               wrapper.classList.remove('collapsed');
               wrapper.style.maxHeight = 'none';
-              syncAriaExpanded(section);
+              syncAriaExpanded(toggleBtn);
             }
           } else {
             section.classList.add('hidden-section');
@@ -293,6 +277,9 @@ document.addEventListener('DOMContentLoaded', function () {
               const originalText = link.textContent;
               const regex = new RegExp(`(${searchTerm})`, 'gi');
               link.innerHTML = originalText.replace(regex, '<span class="highlight">$1</span>');
+            } else if (link) {
+              // Shown via the section-level match, not its own text - clear any stale highlight
+              link.innerHTML = link.textContent;
             }
           } else {
             // No match - hide item
@@ -314,10 +301,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
           // Expand the section to show search results
           if (searchTerm) {
-            section.classList.remove('collapsed');
+            toggleBtn.classList.remove('collapsed');
             wrapper.classList.remove('collapsed');
             wrapper.style.maxHeight = 'none';
-            syncAriaExpanded(section);
+            syncAriaExpanded(toggleBtn);
           }
         } else {
           section.classList.add('hidden-section');
@@ -338,10 +325,10 @@ document.addEventListener('DOMContentLoaded', function () {
             hasResults = true;
 
             // Expand the section to show search results
-            section.classList.remove('collapsed');
+            toggleBtn.classList.remove('collapsed');
             wrapper.classList.remove('collapsed');
             wrapper.style.maxHeight = 'none';
-            syncAriaExpanded(section);
+            syncAriaExpanded(toggleBtn);
           } else {
             section.classList.add('hidden-section');
             wrapper.classList.add('hidden-section');
